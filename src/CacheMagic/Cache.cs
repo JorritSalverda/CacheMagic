@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using JitterMagic;
+using RetryMagic;
 
 namespace CacheMagic
 {
@@ -58,7 +59,7 @@ namespace CacheMagic
                 // not in cache, retrieve from the source and store in cache
                 if (WrapInRetry)
                 {
-                    objectFromCache = functionToCallOnCacheMiss.Invoke();
+                    objectFromCache = Retry.Function(functionToCallOnCacheMiss);
                 }
                 else
                 {
