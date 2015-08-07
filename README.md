@@ -1,8 +1,6 @@
 # CacheMagic
 
-What is CacheMagic?
---------------------------------
-A c# library to do in-memory caching
+A c# library for in-memory caching, using jitter and retries for stable systems at scale
 
 [![Build Status](https://img.shields.io/appveyor/ci/JorritSalverda/CacheMagic.svg)](https://ci.appveyor.com/project/JorritSalverda/CacheMagic/)
 [![NuGet downloads](https://img.shields.io/nuget/dt/CacheMagic.svg)](https://www.nuget.org/packages/CacheMagic)
