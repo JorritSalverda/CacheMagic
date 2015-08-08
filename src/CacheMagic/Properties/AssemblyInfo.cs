@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CacheMagic")]
-[assembly: AssemblyDescription("A c# library to retry code with a truncated binary exponential backoff algorithm")]
+[assembly: AssemblyDescription("A c# library for in-memory caching, using jitter and retries for stable systems at scale")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CacheMagic")]
