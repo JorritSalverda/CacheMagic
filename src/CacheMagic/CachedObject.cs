@@ -9,7 +9,7 @@ namespace CacheMagic
     {
     	public T Value { get; private set; }
 
-    	public CachedObject<T>(T value)
+    	public CachedObject(T value)
     	{
     		Value = value;
     	}
