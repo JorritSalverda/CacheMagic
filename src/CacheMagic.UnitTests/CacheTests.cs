@@ -15,7 +15,7 @@ namespace CacheMagic.UnitTests
                 var result = Cache.Get("keyname", () => "value from slow system");
 
                 Assert.Equal("value from slow system", result);
-                CachedObject<T> objectFromCache = HttpContext.Current.Cache["keyname"] as CachedObject<T>;
+                CachedObject<string> objectFromCache = HttpContext.Current.Cache["keyname"] as CachedObject<string>;
                 Assert.Equal("value from slow system", objectFromCache.Value);
             }
         }
@@ -29,7 +29,7 @@ namespace CacheMagic.UnitTests
                 var result = Cache.Get("keyname2", () => null);
 
                 Assert.Equal(null, result);
-                CachedObject<T> objectFromCache = HttpContext.Current.Cache["keyname2"] as CachedObject<T>;
+                CachedObject<string> objectFromCache = HttpContext.Current.Cache["keyname2"] as CachedObject<string>;
                 Assert.Equal(null, objectFromCache.Value);
             }
         }
@@ -45,7 +45,7 @@ namespace CacheMagic.UnitTests
                 var result = Cache.Get("keyname3", () => "some other value by now");
 
                 Assert.Equal("value from slow system", result);
-                CachedObject<T> objectFromCache = HttpContext.Current.Cache["keyname3"] as CachedObject<T>;
+                CachedObject<string> objectFromCache = HttpContext.Current.Cache["keyname3"] as CachedObject<string>;
                 Assert.Equal("value from slow system", objectFromCache.Value);
             }
         }
@@ -61,7 +61,7 @@ namespace CacheMagic.UnitTests
                 var result = Cache.Get("keyname4", () => "some other value by now");
 
                 Assert.Equal(null, result);
-                CachedObject<T> objectFromCache = HttpContext.Current.Cache["keyname4"] as CachedObject<T>;
+                CachedObject<string> objectFromCache = HttpContext.Current.Cache["keyname4"] as CachedObject<string>;
                 Assert.Equal(null, objectFromCache.Value);
             }
         }
