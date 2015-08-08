@@ -52,27 +52,24 @@ namespace CacheMagic
         public static T Get<T>(string cacheKey, Func<T> functionToCallOnCacheMiss, int expirationInSeconds)
         {
             // get object from cache
-            object objectFromCache = HttpContext.Current.Cache.Get(cacheKey);
+            CachedObject<T> objectFromCache = HttpContext.Current.Cache.Get(cacheKey) as CachedObject<T>;
 
             if (objectFromCache == null)
             {
                 // not in cache, retrieve from the source and store in cache
                 if (WrapInRetry)
                 {
-                    objectFromCache = Retry.Function(functionToCallOnCacheMiss);
+                    objectFromCache = new CachedObject(Retry.Function(functionToCallOnCacheMiss));
                 }
                 else
                 {
-                    objectFromCache = functionToCallOnCacheMiss.Invoke();    
+                    objectFromCache = new CachedObject(functionToCallOnCacheMiss.Invoke());    
                 }
 
-                if (objectFromCache != null)
-                {
-                    HttpContext.Current.Cache.Insert(cacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(expirationInSeconds))), TimeSpan.Zero);
-                }
+                HttpContext.Current.Cache.Insert(cacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(expirationInSeconds))), TimeSpan.Zero);
             }
 
-            return (T)objectFromCache;
+            return objectFromCache.Value;
         }
     }
 }
