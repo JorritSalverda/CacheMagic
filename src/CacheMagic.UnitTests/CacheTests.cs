@@ -26,7 +26,7 @@ namespace CacheMagic.UnitTests
             using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
             {
                 // act
-                var result = Cache.Get("keyname2", () => null);
+                var result = Cache.Get("keyname2", () => (string)null);
 
                 Assert.Equal(null, result);
                 CachedObject<string> objectFromCache = HttpContext.Current.Cache["keyname2"] as CachedObject<string>;
@@ -55,7 +55,7 @@ namespace CacheMagic.UnitTests
         {
             using (new HttpSimulator("/", @"c:\inetpub\").SimulateRequest())
             {
-                Cache.Get("keyname4", () => null, 60);
+                Cache.Get("keyname4", () => (string)null, 60);
 
                 // act
                 var result = Cache.Get("keyname4", () => "some other value by now");
