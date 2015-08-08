@@ -59,11 +59,11 @@ namespace CacheMagic
                 // not in cache, retrieve from the source and store in cache
                 if (WrapInRetry)
                 {
-                    objectFromCache = new CachedObject(Retry.Function(functionToCallOnCacheMiss));
+                    objectFromCache = new CachedObject<T>(Retry.Function(functionToCallOnCacheMiss));
                 }
                 else
                 {
-                    objectFromCache = new CachedObject(functionToCallOnCacheMiss.Invoke());    
+                    objectFromCache = new CachedObject<T>(functionToCallOnCacheMiss.Invoke());    
                 }
 
                 HttpContext.Current.Cache.Insert(cacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(expirationInSeconds))), TimeSpan.Zero);
