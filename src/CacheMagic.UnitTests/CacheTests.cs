@@ -107,56 +107,56 @@ namespace CacheMagic.UnitTests
             public void Throws_ArgumentOutOfRangeException_If_CacheDurationInSeconds_Is_Zero_Or_Less()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 0, true, 8, 32, true, 16, 25, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 0, true, 8, 32, true, 16, 25, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_RetryMaximumNumberOfAttempts_Is_Zero_Or_Less()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 0, 32, true, 16, 25, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 0, 32, true, 16, 25, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_RetryMillisecondsPerSlot_Is_Zero_Or_Less()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 0, true, 16, 25, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 0, true, 16, 25, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_RetryMaximumNumberOfSlotsWhenTruncated_Is_Zero_Or_Less()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 0, 25, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 0, 25, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_RetryJitterPercentage_Is_Less_Than_Zero()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, -1, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, -1, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_RetryJitterPercentage_Is_One_Hundred_Or_Greater()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 100, 25));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 100, 25));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_CacheDurationJitterPercentage_Is_Less_Than_Zero()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 25, -1));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 25, -1));
             }
 
             [Fact]
             public void Throws_ArgumentOutOfRangeException_If_CacheDurationJitterPercentage_One_Hundred_Or_Greater()
             {
                 // act + assert
-                Assert.Throws<ArgumentNullException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 25, 100));
+                Assert.Throws<ArgumentOutOfRangeException>(() => Cache.Get("keyname", () => "value from slow system", 60, true, 8, 32, true, 16, 25, 100));
             }
         }
     }
