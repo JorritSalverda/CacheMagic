@@ -7,11 +7,14 @@ namespace CacheMagic
     /// </summary>
     public class CachedObject<T>
     {
-    	public T Value { get; private set; }
+        public T Value { get; private set; }
 
-    	public CachedObject(T value)
-    	{
-    		Value = value;
-    	}
+        public DateTime TimeCreatedUtc { get; private set; }
+
+        public CachedObject(T value)
+        {
+            Value = value;
+            TimeCreatedUtc = DateTime.UtcNow;
+        }
     }
 }

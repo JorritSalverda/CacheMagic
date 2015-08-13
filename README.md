@@ -39,6 +39,30 @@ Cache.DefaultCacheDurationInSeconds = 60;
 Cache.WrapInRetry = true;
 ```
 
+```csharp
+Cache.RetryMaximumNumberOfAttempts = 8;
+```
+
+```csharp
+Cache.RetryMillisecondsPerSlot = 32;
+```
+
+```csharp
+Cache.RetryTruncateNumberOfSlots = true;
+```
+
+```csharp
+Cache.RetryMaximumNumberOfSlotsWhenTruncated = 16;
+```
+
+```csharp
+Cache.RetryJitterPercentage = 25;
+```
+
+```csharp
+Cache.CacheDurationJitterPercentage = 25;
+```
+
 Get it
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [CacheMagic](https://www.nuget.org/packages/CacheMagic/) from the package manager console:
