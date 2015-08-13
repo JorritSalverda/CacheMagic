@@ -99,8 +99,10 @@ namespace CacheMagic
 
             ValidateParameters(expirationInSeconds, wrapInRetry, retryMaximumNumberOfAttempts, retryMillisecondsPerSlot, retryTruncateNumberOfSlots, retryMaximumNumberOfSlotsWhenTruncated, retryJitterPercentage, cacheDurationJitterPercentage);
 
+            string prefixedCacheKey = "CacheMagic_" + cacheKey;
+
             // get object from cache
-            CachedObject<T> objectFromCache = HttpContext.Current.Cache.Get(cacheKey) as CachedObject<T>;
+            CachedObject<T> objectFromCache = HttpContext.Current.Cache.Get(prefixedCacheKey) as CachedObject<T>;
 
             if (objectFromCache == null)
             {
@@ -114,7 +116,7 @@ namespace CacheMagic
                     objectFromCache = new CachedObject<T>(functionToCallOnCacheMiss.Invoke());    
                 }
 
-                HttpContext.Current.Cache.Insert("CacheMagic_" + cacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(expirationInSeconds, cacheDurationJitterPercentage))), TimeSpan.Zero);
+                HttpContext.Current.Cache.Insert(prefixedCacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(expirationInSeconds, cacheDurationJitterPercentage))), TimeSpan.Zero);
             }
 
             return objectFromCache.Value;
