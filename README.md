@@ -27,7 +27,7 @@ The following default settings are used and can be changed by using the code bel
 
 ```csharp
 Cache.UpdateSettings(new CacheSettings(
-	cretrySettings: new RetrySettings(
+	retrySettings: new RetrySettings(
 		jitterSettings: new JitterSettings(percentage: 25), 
 		maximumNumberOfAttempts: 5, 
 		millisecondsPerSlot: 32, 
@@ -46,7 +46,7 @@ If you wish to be able to inject it - for example for having different settings 
 
 ```csharp
 ICacheInstance instance = new CacheInstance(new CacheSettings(
-	cretrySettings: new RetrySettings(
+	retrySettings: new RetrySettings(
 		jitterSettings: new JitterSettings(percentage: 25), 
 		maximumNumberOfAttempts: 5, 
 		millisecondsPerSlot: 32, 
