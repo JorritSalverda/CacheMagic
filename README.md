@@ -15,52 +15,50 @@ To cache any slowly fetched data in memory
 
 Usage
 --------------------------------
-You at least have to provide a key name and a function to call in case of a cache miss; this function uses the DefaultCacheDurationInSeconds value
+You at least have to provide a key name and a function to call in case of a cache miss; this function uses the default settings
 
 ```csharp
 Cache.Get("KeyName", () => { return _databaseRepository.Get(id); });
 ```
 
-You can provide the cache duration in seconds explicitly
-
-```csharp
-Cache.Get("KeyName", () => { return _databaseRepository.Get(id); }, 300);
-```
-
 ### Changing defaults
 
-The following defaults are used and can be changed by using the following code with different values
+The following default settings are used and can be changed by using the following code with different values
 
 ```csharp
-Cache.DefaultCacheDurationInSeconds = 60;
+Cache.UpdateSettings(new CacheSettings(
+	cretrySettings: new RetrySettings(
+		jitterSettings: new JitterSettings(percentage: 25), 
+		maximumNumberOfAttempts: 5, 
+		millisecondsPerSlot: 32, 
+		truncateNumberOfSlots: true, 
+		maximumNumberOfSlotsWhenTruncated: 16),
+	jitterSettings: new JitterSettings(percentage: 25), 
+	cacheDurationInSeconds: 60, 
+	wrapInRetry: true));
 ```
 
-```csharp
-Cache.WrapInRetry = true;
-```
+### Non-static usage
+
+If you wish to be able to inject it - for example for having different settings in different places - you can use the `RetryInstance` class:
 
 ```csharp
-Cache.RetryMaximumNumberOfAttempts = 8;
+ICacheInstance instance = new CacheInstance(new CacheSettings(
+	cretrySettings: new RetrySettings(
+		jitterSettings: new JitterSettings(percentage: 25), 
+		maximumNumberOfAttempts: 5, 
+		millisecondsPerSlot: 32, 
+		truncateNumberOfSlots: true, 
+		maximumNumberOfSlotsWhenTruncated: 16),
+	jitterSettings: new JitterSettings(percentage: 25), 
+	cacheDurationInSeconds: 60, 
+	wrapInRetry: true));
 ```
 
-```csharp
-Cache.RetryMillisecondsPerSlot = 32;
-```
+This interface and class only has the Get methods without the settings parameter because you provide those during construction.
 
 ```csharp
-Cache.RetryTruncateNumberOfSlots = true;
-```
-
-```csharp
-Cache.RetryMaximumNumberOfSlotsWhenTruncated = 16;
-```
-
-```csharp
-Cache.RetryJitterPercentage = 25;
-```
-
-```csharp
-Cache.CacheDurationJitterPercentage = 25;
+instance.Get("KeyName", () => { return _databaseRepository.Get(id); });
 ```
 
 Get it

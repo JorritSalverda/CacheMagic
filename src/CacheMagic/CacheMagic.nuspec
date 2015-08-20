@@ -12,8 +12,8 @@
     <licenseUrl>https://github.com/JorritSalverda/CacheMagic/blob/master/LICENSE</licenseUrl>
     <dependencies> 
        <group>
-          <dependency id="JitterMagic" version="1.0.0.27" />
-          <dependency id="RetryMagic" version="1.0.0.29" />
+          <dependency id="JitterMagic" version="1.0.030" />
+          <dependency id="RetryMagic" version="1.0.0.39" />
        </group>
     </dependencies>
   </metadata>
