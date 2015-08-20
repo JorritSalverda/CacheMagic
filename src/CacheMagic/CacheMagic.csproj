@@ -38,11 +38,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="RetryMagic">
-      <HintPath>..\packages\RetryMagic.1.0.0.39\lib\net45\RetryMagic.dll</HintPath>
-    </Reference>
     <Reference Include="JitterMagic">
       <HintPath>..\packages\JitterMagic.1.0.0.32\lib\net45\JitterMagic.dll</HintPath>
+    </Reference>
+    <Reference Include="RetryMagic">
+      <HintPath>..\packages\RetryMagic.1.0.0.40\lib\net45\RetryMagic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
