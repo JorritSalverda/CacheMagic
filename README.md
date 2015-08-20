@@ -23,7 +23,7 @@ Cache.Get("KeyName", () => { return _databaseRepository.Get(id); });
 
 ### Changing defaults
 
-The following default settings are used and can be changed by using the following code with different values
+The following default settings are used and can be changed by using the code below with different values
 
 ```csharp
 Cache.UpdateSettings(new CacheSettings(
@@ -38,9 +38,11 @@ Cache.UpdateSettings(new CacheSettings(
 	wrapInRetry: true));
 ```
 
+Validation of settings always takes place during construction of the object so it fails as early as possible.
+
 ### Non-static usage
 
-If you wish to be able to inject it - for example for having different settings in different places - you can use the `RetryInstance` class:
+If you wish to be able to inject it - for example for having different settings in different places - you can use the `CacheInstance` class:
 
 ```csharp
 ICacheInstance instance = new CacheInstance(new CacheSettings(
