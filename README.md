@@ -15,7 +15,7 @@ Usage
 You at least have to provide a key name and a function to call in case of a cache miss; this function uses the default settings
 
 ```csharp
-Cache.Get("KeyName", () => { return _databaseRepository.Get(id); });
+Cache.Get(new MemoryCache(new MemoryCacheOptions()), "KeyName", () => { return _databaseRepository.Get(id); });
 ```
 
 ### Changing defaults
@@ -42,16 +42,17 @@ Validation of settings always takes place during construction of the object so i
 If you wish to be able to inject it - for example for having different settings in different places - you can use the `CacheInstance` class:
 
 ```csharp
-ICacheInstance instance = new CacheInstance(new CacheSettings(
-	retrySettings: new RetrySettings(
+ICacheInstance instance = new CacheInstance(new MemoryCache(new MemoryCacheOptions()), 
+	new CacheSettings(
+		retrySettings: new RetrySettings(
+			jitterSettings: new JitterSettings(percentage: 25), 
+			maximumNumberOfAttempts: 5, 
+			millisecondsPerSlot: 32, 
+			truncateNumberOfSlots: true, 
+			maximumNumberOfSlotsWhenTruncated: 16),
 		jitterSettings: new JitterSettings(percentage: 25), 
-		maximumNumberOfAttempts: 5, 
-		millisecondsPerSlot: 32, 
-		truncateNumberOfSlots: true, 
-		maximumNumberOfSlotsWhenTruncated: 16),
-	jitterSettings: new JitterSettings(percentage: 25), 
-	cacheDurationInSeconds: 60, 
-	wrapInRetry: true));
+		cacheDurationInSeconds: 60, 
+		wrapInRetry: true));
 ```
 
 This interface and class only has the Get methods without the settings parameter because you provide those during construction.
