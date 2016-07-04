@@ -27,14 +27,14 @@ build_script:
 - dotnet --info
 - dotnet restore --no-cache
 - dotnet build **/project.json --configuration Release --version-suffix %APPVEYOR_BUILD_NUMBER%
-- dotnet pack src/RetryMagic/project.json --configuration Release --no-build
+- dotnet pack src/CacheMagic/project.json --configuration Release --no-build
 
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
 
 test_script:
-- dotnet test test/RetryMagic.UnitTests/project.json --configuration Release --no-build
+- dotnet test test/CacheMagic.UnitTests/project.json --configuration Release --no-build
 
 #---------------------------------#
 #      artifacts configuration    #

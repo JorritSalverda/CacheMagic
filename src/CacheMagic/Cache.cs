@@ -42,6 +42,7 @@ namespace CacheMagic
         /// Fetches a value from memory cache or calls a function to get the value from if it's missing in cache using the default settings.
         /// </summary>
         /// <typeparam name="T">The generic type of the object.</typeparam>
+        /// <param name="memoryCache">An IMemoryCache instance.</param>
         /// <param name="cacheKey">The name of the cache key; needs to be unique.</param>
         /// <param name="functionToCallOnCacheMiss">The function to call when the value is not in cache.</param>
         /// <returns>The value from either cache or the function that is called to fill the cache.</returns>
@@ -54,6 +55,7 @@ namespace CacheMagic
         /// Fetches a value from memory cache or calls a function to get the value from if it's missing in cache using passed in settings.
         /// </summary>
         /// <typeparam name="T">The generic type of the object.</typeparam>
+        /// <param name="memoryCache">An IMemoryCache instance.</param>
         /// <param name="cacheKey">The name of the cache key; needs to be unique.</param>
         /// <param name="functionToCallOnCacheMiss">Function to call on cache miss.</param>
         /// <param name="settings">The settings object.</param>
@@ -94,7 +96,5 @@ namespace CacheMagic
 
             return objectFromCache.Value;
         }
-
-
     }
 }

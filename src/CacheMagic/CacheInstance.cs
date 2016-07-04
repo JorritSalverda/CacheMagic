@@ -8,6 +8,10 @@ namespace CacheMagic
     /// </summary>    
     public class CacheInstance:ICacheInstance
     {
+        /// <summary>
+        /// An IMemoryCache instance.
+        /// </summary>
+        /// <value>The IMemoryCache instance.</value>
         public IMemoryCache MemoryCache { get; private set; }
 
         /// <summary>
