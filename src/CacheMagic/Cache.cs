@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 using JitterMagic;
 using RetryMagic;
 
@@ -45,9 +45,9 @@ namespace CacheMagic
         /// <param name="cacheKey">The name of the cache key; needs to be unique.</param>
         /// <param name="functionToCallOnCacheMiss">The function to call when the value is not in cache.</param>
         /// <returns>The value from either cache or the function that is called to fill the cache.</returns>
-        public static T Get<T>(string cacheKey, Func<T> functionToCallOnCacheMiss)
+        public static T Get<T>(IMemoryCache memoryCache, string cacheKey, Func<T> functionToCallOnCacheMiss)
         {
-            return Get(cacheKey, functionToCallOnCacheMiss, Settings);
+            return Get(memoryCache, cacheKey, functionToCallOnCacheMiss, Settings);
         }
 
         /// <summary>
@@ -57,21 +57,25 @@ namespace CacheMagic
         /// <param name="cacheKey">The name of the cache key; needs to be unique.</param>
         /// <param name="functionToCallOnCacheMiss">Function to call on cache miss.</param>
         /// <param name="settings">The settings object.</param>
-        public static T Get<T>(string cacheKey, Func<T> functionToCallOnCacheMiss, CacheSettings settings)
+        public static T Get<T>(IMemoryCache memoryCache, string cacheKey, Func<T> functionToCallOnCacheMiss, CacheSettings settings)
         {
+            if (memoryCache == null)
+            {
+                throw new ArgumentNullException("memoryCache");            
+            }
             if (string.IsNullOrWhiteSpace(cacheKey))
             {
                 throw new ArgumentNullException("cacheKey");
             }
             if (settings == null)
             {
-                throw new ArgumentNullException("settings");            }
-
+                throw new ArgumentNullException("settings");            
+            }
 
             string prefixedCacheKey = "CacheMagic_" + cacheKey;
 
             // get object from cache
-            CachedObject<T> objectFromCache = HttpContext.Current.Cache.Get(prefixedCacheKey) as CachedObject<T>;
+            CachedObject<T> objectFromCache = memoryCache.Get(prefixedCacheKey) as CachedObject<T>;
 
             if (objectFromCache == null)
             {
@@ -85,7 +89,7 @@ namespace CacheMagic
                     objectFromCache = new CachedObject<T>(functionToCallOnCacheMiss.Invoke());    
                 }
 
-                HttpContext.Current.Cache.Insert(prefixedCacheKey, objectFromCache, null, DateTime.Now.Add(TimeSpan.FromSeconds(Jitter.Apply(settings.CacheDurationInSeconds, settings.JitterSettings))), TimeSpan.Zero);
+                memoryCache.Set(prefixedCacheKey, objectFromCache, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(Jitter.Apply(settings.CacheDurationInSeconds, settings.JitterSettings))));            
             }
 
             return objectFromCache.Value;

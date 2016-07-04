@@ -3,10 +3,7 @@
 A c# library for in-memory caching, using jitter and retries for stable systems at scale
 
 [![Build Status .NET](https://ci.appveyor.com/api/projects/status/github/JorritSalverda/CacheMagic?svg=true)](https://ci.appveyor.com/project/JorritSalverda/CacheMagic/)
-[![Build Status Mono](https://api.travis-ci.org/JorritSalverda/CacheMagic.svg)](https://travis-ci.org/JorritSalverda/CacheMagic/)
-[![NuGet downloads](https://img.shields.io/nuget/dt/CacheMagic.svg)](https://www.nuget.org/packages/CacheMagic)
 [![Version](https://img.shields.io/nuget/v/CacheMagic.svg)](https://www.nuget.org/packages/CacheMagic)
-[![Issues](https://img.shields.io/github/issues/JorritSalverda/CacheMagic.svg)](https://github.com/JorritSalverda/CacheMagic/issues)
 [![License](https://img.shields.io/github/license/JorritSalverda/CacheMagic.svg)](https://github.com/JorritSalverda/CacheMagic/blob/master/LICENSE)
 
 Why?

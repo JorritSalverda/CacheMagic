@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 
 namespace CacheMagic
 {
@@ -7,14 +8,22 @@ namespace CacheMagic
     /// </summary>    
     public class CacheInstance:ICacheInstance
     {
+        public IMemoryCache MemoryCache { get; private set; }
+
         /// <summary>
         /// Settings for this instance.
         /// </summary>
         /// <value>The settings.</value>
         public CacheSettings Settings { get; private set; }
 
-        public CacheInstance(CacheSettings settings)
+        public CacheInstance(IMemoryCache memoryCache, CacheSettings settings)
         {
+            if (memoryCache == null)
+            {
+                throw new ArgumentNullException("memoryCache");
+            }
+            
+            MemoryCache = memoryCache;
             UpdateSettings(settings);
         }
 
@@ -41,7 +50,7 @@ namespace CacheMagic
         /// <returns>The value from either cache or the function that is called to fill the cache.</returns>
         public T Get<T>(string cacheKey, Func<T> functionToCallOnCacheMiss)
         {
-            return Cache.Get(cacheKey, functionToCallOnCacheMiss, Settings);
+            return Cache.Get(MemoryCache, cacheKey, functionToCallOnCacheMiss, Settings);
         }            
     }
 }

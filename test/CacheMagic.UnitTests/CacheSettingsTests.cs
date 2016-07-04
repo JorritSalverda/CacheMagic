@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using Http.TestLibrary;
 using Xunit;
 using JitterMagic;

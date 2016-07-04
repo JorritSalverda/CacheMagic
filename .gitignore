@@ -140,6 +140,15 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+# .NET Core files
+artifacts/
+packages/
+.vs/
+*.lock.json
+*.nuget.props
+*.nuget.targets
+
+
 # =========================
 # Windows detritus
 # =========================
